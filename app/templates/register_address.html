@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<h1>Register A New Address</h1>
+
+<form action="" method="post">
+    {{ form.csrf_token }}
+    <div class="form-group">
+        {{ form.name.label }}
+        {{ form.name(class='form-control', placeholder='Name')}}
+
+        {{ form.address.label }}
+        {{ form.address(class='form-control', placeholder='Address')}}
+
+        {{ form.phone_number.label }}
+        {{ form.phone_number(class='form-control', placeholder='Phone Number')}}
+
+        {{ form.submit(class='form-control btn-outline-primary w-100 mt-3', placeholder='Name')}}
+
+    </div>
+</form>
+
+{% for a in addressess%}
+
+<div class="card">
+    <div class="card-body">
+        {{ a }}
+    </div>
+</div>
+
+{% endfor%}
+{% endblock content %}

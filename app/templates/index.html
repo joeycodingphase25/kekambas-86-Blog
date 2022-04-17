@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    {% if current_user.is_authenticated %}
+        <h1>Hello {{ current_user.username }}</h1>
+    {% else %}
+        <h1>Hello please sign up to use Blog</h1>
+    
+    {% endif %}
+
+
+        <h1>All user Posts</h1>
+    
+        {% for p in posts %}
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ p.title }}</h5>
+                <p class="card-text">{{ p.body }}</p>
+                    <div>
+                        {{ p.author }}
+                    </div>
+                    <a href="#" class="btn btn-primary">More Info</a>
+            </div>
+        </div>
+        {% endfor %}
+    
+
+
+
+{% endblock content %}
