@@ -39,7 +39,7 @@ def my_posts():
 def register_address():
     title = 'Register Address'
     form = RegisterAddressForm()
-    addressess = Address.query.all()
+    addressess = current_user.addresses.all()
     if form.validate_on_submit():
         name = form.name.data
         address = form.address.data
