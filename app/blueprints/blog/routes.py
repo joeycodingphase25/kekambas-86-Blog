@@ -1,4 +1,5 @@
 
+from app.blueprints.auth.routes import login
 from app.blueprints.blog import blog
 from flask import redirect, render_template, url_for, flash
 from flask_login import login_required, current_user
@@ -34,6 +35,7 @@ def my_posts():
     return render_template('my_posts.html', title=title, posts=posts)
 
 @blog.route('/register-address', methods=['GET', 'POST'])
+@login_required
 def register_address():
     title = 'Register Address'
     form = RegisterAddressForm()
@@ -42,6 +44,6 @@ def register_address():
         name = form.name.data
         address = form.address.data
         phone = form.phone_number.data
-        Address(name=name, address=address, phone_number=phone)
+        Address(name=name, address=address, phone_number=phone, user_id=current_user.id)
         return redirect(url_for('blog.index'))
     return render_template('register_address.html', title=title, form=form, addressess=addressess)

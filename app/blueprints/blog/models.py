@@ -23,6 +23,7 @@ class Address(db.Model):
     address = db.Column(db.String(100), unique=True, nullable=False)
     phone_number = db.Column(db.String(15), unique=True, nullable=False)
     date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow) 
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

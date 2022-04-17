@@ -3,6 +3,9 @@ from flask_login import UserMixin
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 
+
+
+
 @login.user_loader
 def get_user(user_id):
     return User.query.get(user_id)
@@ -15,6 +18,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(256), nullable=False)
     date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     posts = db.relationship('Post', backref='author', lazy='dynamic')
+    addresses = db.relationship('Address', backref='owner', lazy='dynamic')
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
