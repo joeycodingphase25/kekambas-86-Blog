@@ -3,7 +3,7 @@
 
 {% block content %}
 
-    <h1>My Posts</h1>
+    <h1>{{ title }}</h1>
 
     {% if current_user.is_authenticated %}
         {% for p in posts %}
@@ -14,10 +14,34 @@
                     <div>
                         {{ p.author }}
                     </div>
-                    <a href="#" class="btn btn-success">Edit</a>
-                    <a href="#" class="btn btn-danger">Delete</a>
+                    <a href="{{ url_for('blog.edit_post', post_id=p.id)}}" class="btn btn-success">Edit</a>
+                    <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal{{ p.id }}">delete</button>
+                    
             </div>
         </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="deleteModal{{ p.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModal{{ p.id }}LongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="deleteModal{{ p.id }}LongTitle">Delete {{ p.title }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                Are you sure you want to delete {{ p.title }}
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a href="{{ url_for('blog.delete_post', post_id=p.id)}}" class="btn btn-danger">Confirm</a>
+                </div>
+            </div>
+            </div>
+        </div>
+
+
         {% endfor %}
     {% endif %}
     

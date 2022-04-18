@@ -12,20 +12,23 @@
 
 
         <h1>All user Posts</h1>
-    
+    <div class="row">
+
         {% for p in posts %}
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">{{ p.title }}</h5>
-                <p class="card-text">{{ p.body }}</p>
-                    <div>
-                        {{ p.author }}
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title text-center">{{ p.title }}</h5>
+                    <div class="d-flex justify-content-center">
+                        <cite>&mdash;{{ p.author }} </cite>
                     </div>
-                    <a href="#" class="btn btn-primary">More Info</a>
+                    <a href="{{url_for('blog.single_post', post_id=p.id)}}" class="btn btn-primary w-100">More Info</a>
+                </div>
             </div>
         </div>
         {% endfor %}
-    
+
+    </div>
 
 
 

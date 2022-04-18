@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    <h1>My Addressess</h1>
+
+    {% if current_user.is_authenticated %}
+        {% for a in addressess %}
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ a.name }}</h5>
+                <p class="card-text">{{ a.address }}</p>
+                    <div>
+                        {{ a.phone_number }}
+                    </div>
+                    <a href="{{ url_for('blog.edit_address', address_id=a.id)}}" class="btn btn-success">Edit</a>
+                    <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal{{ a.id }}">delete</button>
+                    
+                </div>
+            </div>
+    
+            <!-- Modal -->
+            <div class="modal fade" id="deleteModal{{ a.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModal{{ a.id }}LongTitle" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModal{{ a.id }}LongTitle">Delete {{ a.name }}'s address?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                    Are you sure you want to delete {{ a.title }}
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <a href="{{ url_for('blog.delete_address', address_id=a.id)}}" class="btn btn-danger">Confirm</a>
+                    </div>
+                </div>
+                </div>
+            </div>
+    
+        {% endfor %}
+    {% endif %}
+    
+{% endblock %}

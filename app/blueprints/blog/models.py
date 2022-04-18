@@ -17,6 +17,16 @@ class Post(db.Model):
     def __repr__(self):
         return f"<Post|{self.title}>"
 
+    def update(self, **kwargs):
+        for key, value in kwargs.items():
+            if key in {'title', 'body'}:
+                setattr(self, key, value)
+        db.session.commit()
+    
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
 class Address(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), unique=True, nullable=False)
@@ -41,3 +51,13 @@ class Address(db.Model):
         Address: {self.address}
         Phone: {self.phone_number}
         """
+    
+    def update(self, **kwargs):
+        for key, value in kwargs.items():
+            if key in {'name', 'address', 'phone_number'}:
+                setattr(self, key, value)
+        db.session.commit()
+    
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
